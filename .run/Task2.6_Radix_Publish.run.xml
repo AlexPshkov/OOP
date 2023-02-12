@@ -1,0 +1,8 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Task2.6_Radix_Publish" type="DotNetFolderPublish" factoryName="Publish to folder">
+    <riderPublish configuration="Release" delete_existing_files="true" include_native_libs_for_self_extract="true" platform="Any CPU" produce_single_file="true" ready_to_run="true" runtime="win-x64" self_contained="true" target_folder="$PROJECT_DIR$/Task2.6_Radix/bin" target_framework="net6.0" trim_unused_assemblies="true" uuid_high="6655489775722122717" uuid_low="-5993099845682826956" />
+    <method v="2">
+      <option name="Build" default="false" projectName="Task2.6_Radix" projectPath="file://$PROJECT_DIR$/Task2.6_Radix/Task2.6_Radix.csproj" />
+    </method>
+  </configuration>
+</component>
