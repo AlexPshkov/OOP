@@ -1,0 +1,6 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Release_All" type="CompoundRunConfigurationType">
+    <toRun name="Task1.3_FindText_Publish" type="DotNetFolderPublish" />
+    <method v="2" />
+  </configuration>
+</component>
