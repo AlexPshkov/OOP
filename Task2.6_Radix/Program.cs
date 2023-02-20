@@ -6,7 +6,9 @@ public static class Program
     {
         try
         {
-            CheckInputArguments( args, 3 );
+            Console.WriteLine( (int)'a' );
+            Console.WriteLine( (int)'9' );
+            CheckInputArguments( args );
             
             int from = GetIntFromArgs( 0, args );
             int to = GetIntFromArgs( 1, args );
@@ -32,11 +34,13 @@ public static class Program
         throw new ArgumentException( $"Argument {args.ElementAt( position )} is not a number" );
     }
 
-    private static void CheckInputArguments( IReadOnlyCollection<string> args, int reqAmount )
+    //DONE: Не просто ошибку, а помощь по вводу
+    private static void CheckInputArguments( IReadOnlyCollection<string> args )
     {
+        const int reqAmount = 3;
         if ( args.Count != reqAmount )
         {
-            throw new ArgumentException( $"Amount of arguments must be {reqAmount}" );
+            throw new ArgumentException( "Input must be: <source notation> <destination notation> <value>" );
         }
     }
 }

@@ -3,6 +3,7 @@
     <toRun name="Task1.3_FindText_Publish" type="DotNetFolderPublish" />
     <toRun name="Task2.6_Radix_Publish" type="DotNetFolderPublish" />
     <toRun name="Task3.2_InvertMatrix_Publish" type="DotNetFolderPublish" />
+    <toRun name="Task5.2_Labyrinth_Publish" type="DotNetFolderPublish" />
     <method v="2" />
   </configuration>
 </component>

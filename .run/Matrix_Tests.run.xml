@@ -1,0 +1,6 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Matrix_Tests" type="PowerShellRunType" factoryName="PowerShell" scriptUrl="$PROJECT_DIR$/Task3.2_InvertMatrix/Tests/start_tests.ps1" workingDirectory="C:\Users\alexp" executablePath="C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe">
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>

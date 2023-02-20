@@ -6,7 +6,7 @@ public static class Program
     {
         try
         {
-            CheckInputArguments( args, 2 );
+            CheckInputArguments( args );
             Find( args[0], args[1] );
         }
         catch ( Exception exception )
@@ -34,11 +34,13 @@ public static class Program
         }
     }
     
-    private static void CheckInputArguments( IReadOnlyCollection<string> args, int reqAmount )
+    //DONE: Не просто ошибку, а помощь по вводу
+    private static void CheckInputArguments( IReadOnlyCollection<string> args )
     {
+        const int reqAmount = 2;
         if ( args.Count != reqAmount )
         {
-            throw new ArgumentException( $"Amount of arguments must be {reqAmount}" );
+            throw new ArgumentException( "Input must be: <file name> <text to search>" );
         }
     }
 }

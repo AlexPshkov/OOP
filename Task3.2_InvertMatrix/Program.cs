@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text;
 
 namespace Task3._2_InvertMatrix;
 
@@ -8,14 +9,14 @@ public static class Program
     {
         try
         {
-            CheckInputArguments( args, 1 );
+            CheckInputArguments( args );
             using MatrixFileReader matrixFileReader = new MatrixFileReader( args[0] );
             float[][] invertedMatrix = MatrixInverter.InvertMatrix( matrixFileReader.Matrix );
             PrintMatrix( invertedMatrix );
         }
         catch ( Exception exception )
         {
-            Console.WriteLine( exception );
+            Console.WriteLine( exception.Message );
             return 1;
         }
         return 0;
@@ -25,6 +26,7 @@ public static class Program
     {
         for ( int i = 0; i < 3; i++ )
         {
+            List<string> strNumbers = new List<string>();
             for ( int j = 0; j < 3; j++ )
             {
                 double normalizedNumber = Math.Round( matrix[i][j], 3 );
@@ -32,23 +34,20 @@ public static class Program
                 {
                     normalizedNumber = 0;
                 }
-                
-                string strNumber = normalizedNumber
-                    .ToString( CultureInfo.InvariantCulture )
-                    .PadRight( 8 );
-                
-                Console.Write( strNumber ); 
+
+                strNumbers.Add(  normalizedNumber.ToString( CultureInfo.InvariantCulture ) );
             }
             
-            Console.WriteLine();
+            Console.WriteLine( string.Join( ' ', strNumbers ) );
         }
     }
     
-    private static void CheckInputArguments( IReadOnlyCollection<string> args, int reqAmount )
+    private static void CheckInputArguments( IReadOnlyCollection<string> args )
     {
+        const int reqAmount = 1;
         if ( args.Count != reqAmount )
         {
-            throw new ArgumentException( $"Amount of arguments must be {reqAmount}" );
+            throw new ArgumentException( "Input must be: <matrix file1>" );
         }
     }
 }

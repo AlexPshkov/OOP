@@ -6,11 +6,26 @@ namespace Task2._6_Radix;
 
 public static class RadixConverter
 {
-    private const int CharNumberOffset = 87; 
+    /// <summary>
+    /// CharNumberOffset = Позиция 'a' - То, какой цифре равен 'a'
+    /// CharNumberOffset = 97 - 10'
+    /// </summary>
+    private const int CharNumberOffset = 87;
     
+    private const int MaxAlphabet = 35; 
+    private const int MinAlphabet = 10; 
     
-    public static string Convert( int from, int to, string value )
+    private const int MaxDecimalNumber = 9; 
+    private const int MinDecimalNumber = 0; 
+    
+    private const int MaxRadixValue = 36; 
+    private const int MinRadixValue = 2; 
+    
+    public static string Convert( int initialRadix, int requiredRadix, string value )
     {
+        CheckRadix( initialRadix );
+        CheckRadix( requiredRadix );
+        
         bool minusFlag = false;
         string normalizedValue = value.Trim().ToLower();
 
@@ -20,33 +35,43 @@ public static class RadixConverter
             normalizedValue = normalizedValue[1..];
         }
         
-        BigInteger decimalValue = ConvertToDecimal( from, normalizedValue );
+        BigInteger decimalValue = ConvertStringToNumber( normalizedValue, initialRadix );
+        return (minusFlag ? "-" : "") + ConvertNumberToString( decimalValue, requiredRadix );
+    }
 
-        return (minusFlag ? "-" : "") + ConvertToAnother( to, decimalValue );
+    private static void CheckRadix( int radix )
+    {
+        if ( radix is > MaxRadixValue or < MinRadixValue )
+        {
+            throw new Exception( $"Invalid radix {radix}. More then 36 or less then 2" );
+        }
     }
     
-    private static BigInteger ConvertToDecimal( int from, string value )
+    //DONE: В функциях использовать название аргумента абстрактно от общего контекста
+    private static BigInteger ConvertStringToNumber( string value, int radix )
     {
         BigInteger result = 0;
         
         for ( int i = 0; i < value.Length; i++ )
         {
-            int numericalRepresentation = GetNumericalRepresentation( from, value[i] );
-            result += numericalRepresentation * Pow( from, value.Length - i - 1 );
+            int numericalRepresentation = GetNumericalRepresentation( radix, value[i] );
+            result += numericalRepresentation * Pow( radix, value.Length - i - 1 );
         }
 
         return result;
     }
 
-    private static string ConvertToAnother( int to, BigInteger value )
+    //DONE: Переименовать в ConvertNumberToString
+    //DONE: Перенести радикс на вторую позицию и дать значение по умолчанию
+    private static string ConvertNumberToString( BigInteger value, int radix = 10 )
     {
         StringBuilder stringBuilder = new StringBuilder();
 
-        while ( value >= to )
+        while ( value >= radix )
         {
-            BigInteger residue = value % to;
+            BigInteger residue = value % radix;
             stringBuilder.Append( GetStringRepresentation( residue ) );
-            value /= to;
+            value /= radix;
         }
 
         stringBuilder.Append( GetStringRepresentation( value ) );
@@ -56,16 +81,16 @@ public static class RadixConverter
 
     private static string GetStringRepresentation( BigInteger number )
     {
-        if ( number >= 0 && number <= 9 )
+        if ( number >= MinDecimalNumber && number <= MaxDecimalNumber )
         {
-            return number.ToString().ToUpper();
+            return number.ToString();
         }
 
         BigInteger code = number + CharNumberOffset;
         return ((char) code).ToString().ToUpper();
     }
     
-    private static int GetNumericalRepresentation( int from, char strNumber )
+    private static int GetNumericalRepresentation( int radix, char strNumber )
     {
         if ( int.TryParse( strNumber.ToString(), out int result ) )
         {
@@ -73,11 +98,11 @@ public static class RadixConverter
         }
 
         int code = strNumber - CharNumberOffset;
-        if ( code >= from )
+        if ( code >= radix )
         {
-            throw new InvalidEnumArgumentException( $"Invalid number {strNumber}. More than a number calculus system" );
+            throw new InvalidEnumArgumentException( $"Invalid number {strNumber}. More than possible value in radix" );
         }
-        if ( code is > 35 or < 10 )
+        if ( code is > MaxAlphabet or < MinAlphabet )
         {
             throw new InvalidEnumArgumentException( $"Invalid number {strNumber}. More or less, then possible" );
         }
@@ -85,13 +110,14 @@ public static class RadixConverter
         return code;
     }
     
-    private static BigInteger Pow( int from, int grade )
+    //Обойтись без возвездения
+    private static BigInteger Pow( int number, int grade )
     {
         BigInteger result = BigInteger.One;
 
         for ( int i = 0; i < grade; i++ )
         {
-            result *= from;
+            result *= number;
         }
 
         return result;
