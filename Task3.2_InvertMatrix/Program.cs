@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Text;
 
 namespace Task3._2_InvertMatrix;
 
@@ -30,7 +29,7 @@ public static class Program
             for ( int j = 0; j < 3; j++ )
             {
                 double normalizedNumber = Math.Round( matrix[i][j], 3 );
-                if ( normalizedNumber == 0 )
+                if ( normalizedNumber == 0 )//Добавить комментарий поясняющий странные места в коде.
                 {
                     normalizedNumber = 0;
                 }

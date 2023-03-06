@@ -8,6 +8,7 @@ public static class MatrixInverter
         float determinant = GetDeterminant( matrix );
         if ( determinant == 0 )
         {
+            //Указать ошибку конкретнее. ArgumentException например
             throw new Exception( "Can't invert. Determinant is 0" );
         }
 

@@ -1,10 +1,12 @@
-﻿using Task5._2_Labyrinth.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+using Task5._2_Labyrinth.Models;
 using Task5._2_Labyrinth.Models.Enums;
 
 namespace Task5._2_Labyrinth.PathFinder;
 
 public static class BreadthFirstSearch
 {
+    [SuppressMessage( "ReSharper.DPA", "DPA0000: DPA issues" )]
     public static List<MazeCell> FindPath( Maze maze )
     {
         LinkedList<MazeCell> mazeCellQueue = new LinkedList<MazeCell>();

@@ -2,6 +2,8 @@
 
 public class MatrixFileReader : StreamReader
 {
+    private const int MatrixSize = 3;
+    
     public float[][] Matrix { get; } = Utils.GetEmptyMatrix();
 
     private int _lineCounter;
@@ -31,9 +33,9 @@ public class MatrixFileReader : StreamReader
             HandleNewLine( ReadLine() );
         }
         
-        if ( _lineCounter != 3 )
+        if ( _lineCounter != MatrixSize )
         {
-            throw new Exception( "Invalid matrix format. Must be 3x3" );
+            throw new Exception( $"Invalid matrix format. Must be {MatrixSize}x{MatrixSize}" );
         }
     }
 
@@ -46,9 +48,9 @@ public class MatrixFileReader : StreamReader
         _lineCounter += 1;
 
         string[] lineArguments = line.Trim().Split( " " );
-        if ( lineArguments.Length != 3 )
+        if ( lineArguments.Length != MatrixSize )
         {
-            throw new Exception( "Invalid matrix format. Must be 3x3" );
+            throw new Exception( $"Invalid matrix format. Must be {MatrixSize}x{MatrixSize}" );
         }
 
         for ( int i = 0; i < lineArguments.Length; i++ )
