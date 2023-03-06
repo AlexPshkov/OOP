@@ -4,7 +4,7 @@ public static class ConsoleReader
 {
     private const char NumberSeparator = ' ';
     
-    public static List<float> ReadNumbers()
+    public static List<double> ReadNumbers()
     {
         string? inputString = Console.ReadLine();
         if ( string.IsNullOrEmpty( inputString ) )
@@ -12,12 +12,12 @@ public static class ConsoleReader
             throw new ArgumentNullException( inputString );
         }
 
-        List<float> numbers = new List<float>();
+        List<double> numbers = new List<double>();
         
         string[] strNumbers = inputString.Split( NumberSeparator );
         foreach ( string strNumber in strNumbers )
         {
-            if ( !float.TryParse( strNumber, out float value ) )
+            if ( !double.TryParse( strNumber, out double value ) )
             {
                 throw new ArgumentException( $"'{strNumber}' is not a correct value. Only numbers allowed" );
             }

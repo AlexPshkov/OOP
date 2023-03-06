@@ -8,16 +8,16 @@ public static class NumbersListHandler
     /// Элементы, стоящие на четных позициях массива умножить на 2,
     /// а из элементов, стоящих на нечетных позициях, вычесть сумму всех неотрицательных элементов
     /// </summary>
-    public static void Handle( List<float> list )
+    public static void Handle( List<double> list )
     {
-        float positiveSum = list
+        double positiveSum = list
             .Where( number => number > 0 )
-            .Select( number => float.Round( number, DigitsAfterComma ) )
+            .Select( number => double.Round( number, DigitsAfterComma ) )
             .Sum();
 
         for ( int index = 0; index < list.Count; index++ )
         {
-            float number = list[index];
+            double number = list[index];
             list[index] = ( index + 1 ) % 2 == 0 ? number * 2 : number - positiveSum;
         }
     }

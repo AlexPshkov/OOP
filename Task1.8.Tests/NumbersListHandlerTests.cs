@@ -8,18 +8,18 @@ public class NumbersListHandlerTests
     public void NumbersListHandler_Handle_NormaInput_CorrectAnswer()
     {
         //Arrange
-        List<float> list = new List<float>
+        List<double> list = new List<double>
         {
-            1, 2, 2.5F, 4, -5
+            1, 2, 2.5, 4, -5
         };
         
         //Act
         NumbersListHandler.Handle( list );
         
         //Assert
-        List<float> mustBe = new List<float>
+        List<double> mustBe = new List<double>
         {
-            -8.5F, 4, -7, 8, -14.5F
+            -8.5, 4, -7, 8, -14.5
         };
         
         Assert.Equal( 5, list.Count );
@@ -30,7 +30,7 @@ public class NumbersListHandlerTests
     public void NumbersListHandler_Handle_EmptyList_NoErrors()
     {
         //Arrange
-        List<float> list = new List<float>();
+        List<double> list = new List<double>();
         
         //Act
         NumbersListHandler.Handle( list );

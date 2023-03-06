@@ -2,9 +2,9 @@
 
 public static class QuickSort
 {
-    public static List<float> Sort( IEnumerable<float> inputList )
+    public static List<double> Sort( IEnumerable<double> inputList )
     {
-        List<float> list = new List<float>( inputList );
+        List<double> list = new List<double>( inputList );
         
         Stack<int> stack = new Stack<int>();
         stack.Push( 0 );
@@ -31,7 +31,7 @@ public static class QuickSort
         return list;
     }
 
-    private static int Partition( IList<float> list, int leftIndex, int rightIndex )
+    private static int Partition( IList<double> list, int leftIndex, int rightIndex )
     {
         double pivotValue = list[rightIndex];
         int firstIndex = leftIndex - 1;
@@ -50,7 +50,7 @@ public static class QuickSort
         return firstIndex + 1;
     }
 
-    private static void Swap( IList<float> list, int firstIndex, int secondIndex )
+    private static void Swap( IList<double> list, int firstIndex, int secondIndex )
     {
         ( list[firstIndex], list[secondIndex] ) = ( list[secondIndex], list[firstIndex] );
     }

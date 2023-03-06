@@ -7,20 +7,20 @@ public static class Program
 {
     public static int Main()
     {
-        if ( !TryGetNumbers( out List<float> numbers ) )
+        if ( !TryGetNumbers( out List<double> numbers ) )
         {
             return 1;
         }
 
         NumbersListHandler.Handle( numbers );
-        List<float> sortedNumbers = QuickSort.Sort( numbers );
+        List<double> sortedNumbers = QuickSort.Sort( numbers );
         
         ConsoleWriter.WriteLn( sortedNumbers );
         
         return 0;
     }
 
-    private static bool TryGetNumbers( out List<float> numbers )
+    private static bool TryGetNumbers( out List<double> numbers )
     {
         try
         {
@@ -36,7 +36,7 @@ public static class Program
             Console.WriteLine( exception.Message );
         }
 
-        numbers = new List<float>();
+        numbers = new List<double>();
         return false;
     }
 }

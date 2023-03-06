@@ -9,18 +9,18 @@ public class QuickSortTests
     public void QuickSort_Sort_NormaInput_CorrectAnswer()
     {
         //Arrange
-        List<float> list = new List<float>
+        List<double> list = new List<double>
         {
-            1, 2, 2.5F, 4, -5
+            1, 2, 2.5, 4, -5
         };
         
         //Act
-        List<float> sortedList = QuickSort.Sort( list );
+        List<double> sortedList = QuickSort.Sort( list );
         
         //Assert
-        List<float> mustBe = new List<float>
+        List<double> mustBe = new List<double>
         {
-            -5, 1, 2, 2.5F, 4
+            -5, 1, 2, 2.5, 4
         };
         
         Assert.Equal( mustBe, sortedList );
@@ -30,10 +30,10 @@ public class QuickSortTests
     public void QuickSort_Sort_BigInput_QuickWork()
     {
         //Arrange
-        List<float> list = new List<float>();
+        List<double> list = new List<double>();
         for ( int index = 0; index < 10000; index++ )
         {
-            list.Add( (float) new Random().NextDouble() );
+            list.Add( new Random().NextDouble() );
         }
 
         //Act
@@ -49,10 +49,10 @@ public class QuickSortTests
     public void QuickSort_Sort_EmptyInput_NoErrors()
     {
         //Arrange
-        List<float> list = new List<float>();
+        List<double> list = new List<double>();
 
         //Act
-        List<float> sortedList = QuickSort.Sort( list );
+        List<double> sortedList = QuickSort.Sort( list );
         
         //Assert
         Assert.Empty( sortedList );
