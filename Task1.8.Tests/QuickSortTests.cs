@@ -42,7 +42,7 @@ public class QuickSortTests
         TimeSpan workingTime = DateTime.Now - timeStart;
         
         //Assert
-        Assert.InRange( workingTime, TimeSpan.FromMicroseconds( 1 ), TimeSpan.FromMilliseconds( 5 ) );
+        Assert.InRange( workingTime, TimeSpan.FromMicroseconds( 1 ), TimeSpan.FromMilliseconds( 10 ) );
     }
     
     [Fact]

@@ -1,4 +1,4 @@
-﻿using Task3._2_Dictionary.IO;
+﻿using Task3._2_Dictionary.Repositories;
 
 namespace Task3._2_Dictionary;
 
@@ -6,20 +6,11 @@ public static class Program
 {
     public static int Main()
     {
-        string filePath = "./dictionary.txt";
+        DictionaryRepository dictionaryRepository = new DictionaryRepository( "dictionary.txt" );
 
-        DictionaryRepository dictionaryRepository = new DictionaryRepository( filePath );
+        UserDialog userDialog = new UserDialog( dictionaryRepository );
+        userDialog.Start( CancellationToken.None );
 
-
-        Dictionary dictionary = new Dictionary();
-        dictionary.AddTranslation( "Hello", "World" );
-        dictionaryRepository.SaveDictionary( dictionary );
-
-
-        Dictionary storedDictionary = dictionaryRepository.GetDictionary();
-        Console.WriteLine( string.Join( ' ', storedDictionary.GetTranslations( "Hello" ) ) );
-        
-        
         return 0;
     }
 }
