@@ -18,7 +18,7 @@ public class DictionaryRepository
         using StreamWriter streamWriter = new StreamWriter( _filePath );
 
         string serializedDictionary = string
-            .Join( '\n', dictionary.WordsTranslations.Select( TranslationSerializer.Serialize ) );
+            .Join( '\n', dictionary.GetTranslations().Select( TranslationSerializer.Serialize ) );
         streamWriter.Write( serializedDictionary );
 
         streamWriter.Close();

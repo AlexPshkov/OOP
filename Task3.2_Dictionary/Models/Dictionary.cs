@@ -2,7 +2,8 @@
 
 public class Dictionary
 {
-    public List<Translation> WordsTranslations { get; }
+    //Время поиска должны быть не хуже чем O(logN)
+    private List<Translation> WordsTranslations { get; }
     private bool _isNewTranslations;
 
     public Dictionary()
@@ -33,6 +34,11 @@ public class Dictionary
 
         WordsTranslations.Add( wordTranslation );
         _isNewTranslations = true;
+    }
+
+    public List<Translation> GetTranslations()
+    {
+        return new List<Translation>( WordsTranslations );
     }
     
     public List<string> GetTranslations( string word )
