@@ -11,11 +11,7 @@ public static class EratosthenesSieve
             return new HashSet<int>();
         }
         
-        bool[] isPrime = new bool[upperBound + 1];
-        for ( int index = StartIndex; index <= upperBound; index++ )
-        {
-            isPrime[index] = true;
-        }
+        bool[] isPrime = Enumerable.Repeat(true, upperBound + 1).ToArray();
 
         for ( int index = StartIndex; index * index <= upperBound; index++ )
         {
@@ -33,10 +29,12 @@ public static class EratosthenesSieve
         HashSet<int> primeNumbers = new HashSet<int>();
         for ( int index = StartIndex; index <= upperBound; index++ )
         {
-            if ( isPrime[index] )
+            if ( !isPrime[index] )
             {
-                primeNumbers.Add( index );
+                continue;
             }
+
+            primeNumbers.Add( index );
         }
 
         return primeNumbers;

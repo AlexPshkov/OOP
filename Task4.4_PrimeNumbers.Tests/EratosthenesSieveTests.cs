@@ -42,4 +42,20 @@ public class EratosthenesSieveTests
         // Assert
         Assert.Empty( primeNumbers );
     }
+    
+    
+    [Fact]
+    public void EratosthenesSieve_GeneratePrimeNumbersSet_LargeAmount_QuickWork()
+    {
+        // Arrange
+        int upperBound = 100000000;
+
+        // Act
+        DateTime startTime = DateTime.Now;
+        HashSet<int> primeNumbers = EratosthenesSieve.GeneratePrimeNumbersSet( upperBound );
+
+        // Assert
+        Assert.InRange( DateTime.Now - startTime, TimeSpan.FromMicroseconds( 1 ), TimeSpan.FromSeconds( 10 ) );
+        Assert.Equal( 5761455, primeNumbers.Count );
+    }
 }
