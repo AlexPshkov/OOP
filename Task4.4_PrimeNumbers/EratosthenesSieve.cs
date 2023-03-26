@@ -10,7 +10,7 @@ public static class EratosthenesSieve
         {
             return new HashSet<int>();
         }
-        
+        // Почему сдесь +1 дать коментарий чтоб не вызывать вопросы у читающего
         bool[] isPrime = Enumerable.Repeat(true, upperBound + 1).ToArray();
 
         for ( int index = StartIndex; index * index <= upperBound; index++ )
@@ -20,6 +20,7 @@ public static class EratosthenesSieve
                 continue;
             }
 
+            // secondIndex переименовать индекс
             for ( int secondIndex = index * index; secondIndex <= upperBound; secondIndex += index )
             {
                 isPrime[secondIndex] = false;

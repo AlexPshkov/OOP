@@ -16,7 +16,9 @@ public static class Program
             return 1;
         }
 
+        // Гарантировать порядок
         HashSet<int> primeNumbers = EratosthenesSieve.GeneratePrimeNumbersSet( upperBound );
+        
         Console.WriteLine( string.Join( ", ", primeNumbers ) );
         
         return 0;
