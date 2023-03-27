@@ -112,14 +112,14 @@ public class Car : ICar
             throw new InvalidSpeedException( string.Format( errorMessage, gear.MaxSpeed, gear.MinSpeed ) );
         }
 
-        HandleSpeedChange( speed );
+        ChangeMovementDirection( speed );
 
         _currentSpeed = speed;
         return true;
     }
     #endregion
     
-    private void HandleSpeedChange( int speed )
+    private void ChangeMovementDirection( int speed )
     {
         if ( speed == 0 )
         {
