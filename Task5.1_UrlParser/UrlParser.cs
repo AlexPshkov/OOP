@@ -9,6 +9,13 @@ public static partial class UrlParser
     private static partial Regex UrlRegex();
     
     
+    // What this code does: 
+    // 1. It takes the input string and tries to match it with the regex
+    // 2. If the regex matches, it tries to get the protocol, host, port and document from the match
+    // 3. If any of the steps fail, it returns false
+    // 4. If all the steps succeed, it returns true
+    
+    // 
     public static bool ParseURL( string url, out Protocol protocol, out int port, out string? host, out string? document )
     {
         Match match = UrlRegex().Match( url );

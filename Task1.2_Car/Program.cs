@@ -7,11 +7,11 @@ public static class Program
 {
     private static Dictionary<string, Action<string[]>> Commands = new Dictionary<string, Action<string[]>>
     {
-        {"info", GetCarInfo },
-        {"engineon", EngineOn },
-        {"engineoff", EngineOff },
-        {"setgear", SetGear },
-        {"setspeed", SetSpeed }
+        { "info", GetCarInfo },
+        { "engineon", EngineOn },
+        { "engineoff", EngineOff },
+        { "setgear", SetGear },
+        { "setspeed", SetSpeed }
     };
     
     private static readonly ICar _car = new Car();

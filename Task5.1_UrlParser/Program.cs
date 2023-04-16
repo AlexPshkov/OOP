@@ -4,9 +4,11 @@ namespace Task5._1_UrlParser;
 
 public static class Program
 {
-    public static int Main( string[] args )
+    public static int Main()
     {
-
+        // Сделать обработку айпишников 127.0.01 ...
+        // Сделать обработку localhost/:8080
+        // Ограничение порта от 1 до 65535
         while ( true )
         {
             string? inputUrl = Console.ReadLine();
@@ -26,7 +28,5 @@ public static class Program
             Console.WriteLine( $"PORT: {port}" );
             Console.WriteLine( $"DOC: {document}" );
         }
-        
-        return 0;
     }
 }
