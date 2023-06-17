@@ -17,6 +17,6 @@ public class TelegramBotConfiguration : ITelegramBotConfiguration
 
     public TelegramBotConfiguration( IConfiguration configuration ) 
     {
-        _settings = configuration.GetSection( "TelegramBot" ) as TelegramBotConfiguration;
+        // _settings = configuration.GetSection( "TelegramBot" ) as TelegramBotConfiguration;
     }
 }

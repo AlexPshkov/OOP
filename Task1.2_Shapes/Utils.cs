@@ -1,4 +1,4 @@
-﻿namespace Task1._1_Figures;
+﻿namespace Task1._2_Shapes;
 
 public static class Utils
 {

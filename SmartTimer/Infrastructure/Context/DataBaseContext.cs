@@ -1,22 +1,25 @@
-﻿using System.Data.Entity;
-using Domain.Models;
+﻿using Domain.Models;
 using Domain.UnitOfWork;
-using Infrastructure.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Context;
 
 public class DataBaseContext : DbContext, IUnitOfWork
 {
+    protected readonly string ConnectionString;
+    
     public DbSet<UserEntity> UserEntities { get; set; }
-    
-    public DataBaseContext( string nameOrConnectionString ) : base( nameOrConnectionString ) { }
-    
-    public int CommitChanges() => base.SaveChanges();
 
-    public Task<int> CommitChangesAsync() => base.SaveChangesAsync();
-
-    protected override void OnModelCreating( DbModelBuilder modelBuilder )
+    public DataBaseContext( string connectionString )
     {
-        modelBuilder.Configurations.Add( new UserEntityConfiguration() );
+        ConnectionString = connectionString;
+    }
+
+    public int CommitChanges() => base.SaveChanges();
+    public Task<int> CommitChangesAsync() => base.SaveChangesAsync();
+    
+    protected override void OnConfiguring( DbContextOptionsBuilder options )
+    {
+        options.UseNpgsql( ConnectionString );
     }
 }
