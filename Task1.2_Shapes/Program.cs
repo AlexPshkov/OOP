@@ -1,5 +1,4 @@
-﻿using Task1._2_Shapes.Canvas;
-using Task1._2_Shapes.Shapes;
+﻿using Task1._2_Shapes.Shapes;
 using Task1._2_Shapes.UI;
 
 namespace Task1._2_Shapes;
@@ -10,8 +9,6 @@ public static class Program
     
     private static void Main( string[] args )
     {
-        using Canvas.Canvas canvas = new Canvas.Canvas( 800, 600, "Task1.2_Shapes");
-        
         CommandsManager.StartCommandHandling();
     }
 
