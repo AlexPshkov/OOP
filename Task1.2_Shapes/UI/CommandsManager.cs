@@ -2,7 +2,7 @@
 
 namespace Task1._2_Shapes.UI;
 
-public static class CommandHandler
+public static class CommandsManager
 {
     private static readonly Dictionary<string, AbstractUserCommand> UserCommands = new Dictionary<string, AbstractUserCommand>
     {
@@ -15,8 +15,7 @@ public static class CommandHandler
     };
 
     private static bool _isRunning;
-
-
+    
     public static List<string> GetCommandsUsages()
     {
         return UserCommands.Values.Select( x => x.CommandUse ).ToList();

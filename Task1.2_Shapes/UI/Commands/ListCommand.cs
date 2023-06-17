@@ -11,7 +11,7 @@ public class ListCommand : AbstractUserCommand
     {
         Console.WriteLine( "\nCommands list:" );
         
-        foreach ( string commandsUsage in CommandHandler.GetCommandsUsages() )
+        foreach ( string commandsUsage in CommandsManager.GetCommandsUsages() )
         {
             Console.WriteLine($" * {commandsUsage}");
         }

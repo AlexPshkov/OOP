@@ -11,7 +11,7 @@ public class StopCommand : AbstractUserCommand
 
     public override void Execute( string[] args )
     {
-        CommandHandler.StopCommandHandling();
+        CommandsManager.StopCommandHandling();
         Console.WriteLine( "Stopped" );
 
         IShape? highestAreaShape = Program.GetShapeWithHighestArea();

@@ -21,13 +21,13 @@ public class Circle : ISolidShape
     public double GetArea()
     {
         double area = Math.PI * _radius * _radius;
-        return Utils.Round( area );
+        return area;
     }
 
     public double GetPerimeter()
     {
-        double perimeter = 2 *Math.PI * _radius;
-        return Utils.Round( perimeter );
+        double perimeter = 2 * Math.PI * _radius;
+        return perimeter;
     }
 
     public override string ToString()
