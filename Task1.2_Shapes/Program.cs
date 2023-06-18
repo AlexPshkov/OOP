@@ -7,11 +7,12 @@ public static class Program
 {
     private static readonly ShapesManager ShapesManager = new ShapesManager();
     
-    private static void Main( string[] args )
+    private static void Main()
     {
         CommandsManager.StartCommandHandling();
     }
 
+    //Прокинуть ShapesManage на прямую в команду
     public static void AddShape( IShape shape ) => ShapesManager.AddShape( shape );
     public static void ClearShapes() => ShapesManager.ClearShapes();
     public static IShape? GetShapeWithHighestArea() => ShapesManager.GetShapeWithHighestArea();

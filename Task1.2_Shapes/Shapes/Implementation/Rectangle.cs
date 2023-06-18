@@ -5,6 +5,8 @@ namespace Task1._2_Shapes.Shapes.Implementation;
 
 public class Rectangle : ISolidShape
 {
+    
+    // Получение всех возможных параметров объекат
     private readonly Point _leftTopPoint;
     private readonly Point _rightBottomPoint;
     private readonly Color _fillColor;

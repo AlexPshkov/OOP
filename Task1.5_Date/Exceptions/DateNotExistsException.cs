@@ -1,4 +1,4 @@
-using Task1._5_Date.Models.Gregorian.Enums;
+using Task1._5_Date.Models.Calendars.Gregorian.Enums;
 
 namespace Task1._5_Date.Exceptions;
 

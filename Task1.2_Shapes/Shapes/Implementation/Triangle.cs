@@ -51,6 +51,7 @@ public class Triangle : ISolidShape
         return _fillColor;
     }
 
+    // Устраниить дублирование toString
     public override string ToString()
     {
         StringBuilder stringBuilder = new StringBuilder( "===[TRIANGLE]===\n" );

@@ -1,7 +1,7 @@
 using Task1._5_Date.Exceptions;
-using Task1._5_Date.Models.Gregorian.Enums;
+using Task1._5_Date.Models.Calendars.Gregorian.Enums;
 
-namespace Task1._5_Date.Models.Gregorian;
+namespace Task1._5_Date.Models.Calendars.Gregorian;
 
 public class GregorianCalendar : ICustomCalendar
 {
@@ -38,7 +38,6 @@ public class GregorianCalendar : ICustomCalendar
 
     public bool IsLeapYear( int year )
     {
-        // Каждый 4-ый год високосный, но если он не 100-ый и не 400-ый
         return year % 4 == 0 && ( year % 100 != 0 || year % 400 == 0 );
     }
 
