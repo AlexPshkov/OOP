@@ -7,9 +7,15 @@ public class GregorianCalendar : ICustomCalendar
 {
     private const int MinSupportedYear = 1970;
     private const int MaxSupportedYear = 9999;
-    
-    private const int DaysInLeapYear = 365;
-    private const int DaysInFullYear = 366;
+
+    private const int DaysInLeapYear = 366;
+    private const int DaysInFullYear = 365;
+
+    private const int DaysInFebruaryLeapYear = 29;
+    private const int DaysAfterJulianEra = 719468;
+    private const int DaysInFullEra = 146097;
+    private const int DaysInSmallEra = 146096;
+    private const int YearsInEra = 400;
 
     public int MinDayOffset { get; }
     public int MaxDayOffset { get; }
@@ -41,111 +47,6 @@ public class GregorianCalendar : ICustomCalendar
         return year % 4 == 0 && ( year % 100 != 0 || year % 400 == 0 );
     }
 
-    public int GetDaysOffset( int year, Month month, int day )
-    {
-        if ( !IsDateExists( year, month, day ) )
-        {
-            throw new DateNotExistsException( year, month, day );
-        }
-
-        int days = day;
-        for ( int yearIndex = MinSupportedYear; yearIndex < year; yearIndex++ )
-        {
-            days += IsLeapYear( yearIndex ) ? DaysInFullYear : DaysInLeapYear;
-        }
-        
-        for ( int monthIndex = 1; monthIndex < (int) month; monthIndex++ )
-        {
-            days += DaysPerMonth[ (Month) monthIndex ];
-        }
-
-        if ( IsLeapYear( year ) && month > Month.February )
-        {
-            days += 1;
-        }
-
-        return days - 1;
-    }
-
-    public DateParams GetDateParamsFromDaysOffset( int daysOffset )
-    {
-        int year = MinSupportedYear;
-        int month = 1;
-        int day = 1;
-
-        int daysInYear = IsLeapYear( year ) ? DaysInFullYear : DaysInLeapYear;
-
-        while ( daysOffset > daysInYear )
-        {
-            daysOffset -= daysInYear;
-            year++;
-
-            daysInYear = IsLeapYear( year ) ? DaysInFullYear : DaysInLeapYear;
-        }
-
-        for ( int monthIndex = 1; monthIndex <= (int) Month.December; monthIndex++ )
-        {
-            int daysInCurrentMonth = GetDaysInMonth( year, (Month) monthIndex );
-
-            if ( daysOffset < daysInCurrentMonth )
-            {
-                break;
-            }
-
-            daysOffset -= daysInCurrentMonth;
-            month++;
-        }
-
-        if ( month > (int) Month.December )
-        {
-            month -= (int) Month.December;
-            year++;
-        }
-
-        day += daysOffset;
-
-        return new DateParams
-        {
-            Year = year,
-            Month = (Month) month,
-            Day = day
-        };
-    }
-
-    public WeekDay GetWeekDay( int year, Month month, int day )
-    {
-        if ( !IsDateExists( year, month, day ) )
-        {
-            throw new DateNotExistsException( year, month, day );
-        }
-
-        // Коррекция для правильной работы формулы Зеллера
-        int monthNum = (int) month;
-        if ( monthNum < (int) Month.March ) {
-            monthNum += 12;
-            year--;
-        }
-        
-        int centuryYear = year % 100;
-        int century = year / 100;
-
-        // Формула Зеллера для вычисления дня недели
-        int weekDay = ( day + 13 * ( monthNum + 1 ) / 5 + centuryYear + centuryYear / 4 + century / 4 + 5 * century - 1 ) % 7;
-
-        return (WeekDay) weekDay;
-    }
-
-    private int GetDaysInMonth( int year, Month month )
-    {
-        int daysInMonth = DaysPerMonth[ month ];
-        if ( month == Month.February && IsLeapYear( year ) )
-        {
-            daysInMonth++;
-        }
-
-        return daysInMonth;
-    }
-
     public bool IsValidDaysOffset( int daysOffset )
     {
         return daysOffset >= MinDayOffset && daysOffset <= MaxDayOffset;
@@ -169,5 +70,108 @@ public class GregorianCalendar : ICustomCalendar
         }
 
         return day <= GetDaysInMonth( year, month );
+    }
+
+    public int GetDaysOffset( int year, Month month, int day )
+    {
+        if ( !IsDateExists( year, month, day ) )
+        {
+            throw new DateNotExistsException( year, month, day );
+        }
+
+        int days = day;
+        for ( int yearIndex = MinSupportedYear; yearIndex < year; yearIndex++ )
+        {
+            days += IsLeapYear( yearIndex ) ? DaysInLeapYear : DaysInFullYear;
+        }
+
+        for ( int monthIndex = 1; monthIndex < (int) month; monthIndex++ )
+        {
+            days += DaysPerMonth[ (Month) monthIndex ];
+        }
+
+        if ( IsLeapYear( year ) && month > Month.February )
+        {
+            days += 1;
+        }
+
+        return days - 1;
+    }
+
+    public DateParams GetDateParamsFromDaysOffset( int daysOffset )
+    {
+        // Формула Зеллера для вычисления дня, года, месяца
+        int daysAfterJulianEra = daysOffset + DaysAfterJulianEra;
+        int era = ( daysAfterJulianEra >= 0 ? daysAfterJulianEra : daysAfterJulianEra - DaysInSmallEra ) / DaysInFullEra;
+        int daysToCurrentEra = daysAfterJulianEra - era * DaysInFullEra;
+
+        int daysIn1460Years = daysToCurrentEra / 1460;
+        int daysIn36524Years = daysToCurrentEra / 36524;
+        int yearsToCurrentEra = ( daysToCurrentEra - daysIn1460Years + daysIn36524Years - daysToCurrentEra / DaysInSmallEra ) / DaysInFullYear;
+       
+        int daysFromYearBeginning = daysToCurrentEra - ( DaysInFullYear * yearsToCurrentEra + yearsToCurrentEra / 4 - yearsToCurrentEra / 100 + yearsToCurrentEra / YearsInEra );
+        int monthApproximate = ( 5 * daysFromYearBeginning + 2 ) / 153;
+        int month = monthApproximate + ( monthApproximate < 10 ? 3 : -9 );
+        int year = yearsToCurrentEra + era * YearsInEra + ( month <= (int) Month.February ? 1 : 0 );
+        int day = daysFromYearBeginning - 1;
+
+        // Нормализуем дни
+        int currentMonth = 1;
+        int[] monthDays = GetMonthDays( year );
+        while ( day > monthDays[ currentMonth - 1 ] )
+        {
+            day -= monthDays[ currentMonth - 1 ];
+            currentMonth++;
+        }
+
+        return new DateParams
+        {
+            Year = year,
+            Month = (Month) month,
+            Day = day
+        };
+    }
+
+    public WeekDay GetWeekDay( int year, Month month, int day )
+    {
+        if ( !IsDateExists( year, month, day ) )
+        {
+            throw new DateNotExistsException( year, month, day );
+        }
+
+        // Коррекция для правильной работы формулы Зеллера
+        int monthNum = (int) month;
+        if ( monthNum < (int) Month.March )
+        {
+            monthNum += 12;
+            year--;
+        }
+
+        int centuryYear = year % 100;
+        int century = year / 100;
+
+        // Формула Зеллера для вычисления дня недели
+        int weekDay = ( day + 13 * ( monthNum + 1 ) / 5 + centuryYear + centuryYear / 4 + century / 4 + 5 * century - 1 ) % 7;
+
+        return (WeekDay) weekDay;
+    }
+
+    private int GetDaysInMonth( int year, Month month )
+    {
+        return GetMonthDays( year )[ (int) month - 1 ];
+    }
+    
+    private int[] GetMonthDays( int year )
+    {
+        bool isLeapYear = IsLeapYear( year );
+        return DaysPerMonth.Select( x =>
+        {
+            if ( isLeapYear && x.Key == Month.February )
+            {
+                return DaysInFebruaryLeapYear;
+            }
+
+            return x.Value;
+        } ).ToArray();
     }
 }

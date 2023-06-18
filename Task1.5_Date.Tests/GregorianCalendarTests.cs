@@ -3,7 +3,6 @@ using Task1._5_Date.Exceptions;
 using Task1._5_Date.Models;
 using Task1._5_Date.Models.Calendars;
 using Task1._5_Date.Models.Enums;
-using Task1._5_Date.Models.Gregorian;
 
 namespace Task1._5_Date.Tests;
 
@@ -28,6 +27,7 @@ public class GregorianCalendarTests
     [TestCase( 12177, 2003, Month.May, 5 )]
     [TestCase( 14452, 2009, Month.July, 27 )]
     [TestCase( 216066, 2561, Month.July, 27 )]
+    [TestCase( 177752, 2456, Month.September, 1 )]
     public void GregorianCalendar_GetDateParamsFromDaysOffset_NormalInput_CorrectAnswer( int daysOffset, int expectedYear, Month expectedMonth, int expectedDay )
     {
         // Arrange
