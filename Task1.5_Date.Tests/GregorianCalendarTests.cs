@@ -2,8 +2,7 @@
 using Task1._5_Date.Exceptions;
 using Task1._5_Date.Models;
 using Task1._5_Date.Models.Calendars;
-using Task1._5_Date.Models.Calendars.Gregorian;
-using Task1._5_Date.Models.Calendars.Gregorian.Enums;
+using Task1._5_Date.Models.Enums;
 using Task1._5_Date.Models.Gregorian;
 
 namespace Task1._5_Date.Tests;
