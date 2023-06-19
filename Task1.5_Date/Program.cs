@@ -6,6 +6,6 @@ public static class Program
 {
     public static void Main( string[] args )
     {
-        CustomDate date = new CustomDate().FromDays( 1689 );
+        CustomDate date = new CustomDate( 1689 );
     }
 }

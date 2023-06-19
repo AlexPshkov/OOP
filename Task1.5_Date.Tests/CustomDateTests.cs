@@ -12,8 +12,8 @@ public class CustomDateTests
     public void CustomDate_ConditionalOperations_NormalValues_CorrectAnswer()
     {
         // Arrange
-        CustomDate a = new CustomDate().FromDayMonthYear( 1, 1, 1970 );
-        CustomDate b = new CustomDate().FromDayMonthYear( 26, 6, 1974 );
+        CustomDate a = new CustomDate( 1, 1, 1970 );
+        CustomDate b = new CustomDate( 26, 6, 1974 );
 
         // Act 
         bool isEqualB = a == b;
@@ -39,8 +39,8 @@ public class CustomDateTests
     public void CustomDate_ConditionalOperations_NormalValuesSecond_CorrectAnswer()
     {
         // Arrange
-        CustomDate a = new CustomDate().FromDayMonthYear( 1, 1, 1970 );
-        CustomDate b = new CustomDate().FromDayMonthYear( 1, 1, 1970 );
+        CustomDate a = new CustomDate( 1, 1, 1970 );
+        CustomDate b = new CustomDate( 1, 1, 1970 );
 
         // Act 
         bool isEqualB = a == b;
@@ -66,8 +66,8 @@ public class CustomDateTests
     public void CustomDate_ConditionalOperations_InvalidValues_CorrectAnswer()
     {
         // Arrange
-        CustomDate a = new CustomDate().FromDayMonthYear( 1, 1, 1960 );
-        CustomDate b = new CustomDate().FromDayMonthYear( 1, 1, 1970 );
+        CustomDate a = new CustomDate( 1, 1, 1960 );
+        CustomDate b = new CustomDate( 1, 1, 1970 );
 
         // Act 
         bool isEqualB = a == b;
@@ -93,8 +93,8 @@ public class CustomDateTests
     public void CustomDate_ConditionalOperations_InvalidValuesSecond_CorrectAnswer()
     {
         // Arrange
-        CustomDate a = new CustomDate().FromDayMonthYear( 1, 1, 1960 );
-        CustomDate b = new CustomDate().FromDayMonthYear( 1, 1, 99999 );
+        CustomDate a = new CustomDate( 1, 1, 1960 );
+        CustomDate b = new CustomDate( 1, 1, 99999 );
 
         // Act 
         bool isEqualB = a == b;
@@ -124,8 +124,8 @@ public class CustomDateTests
     public void CustomDate_PrimaryOperations_NormalValues_CorrectAnswer()
     {
         // Arrange
-        CustomDate a = new CustomDate().FromDayMonthYear( 1, 1, 1970 );
-        CustomDate b = new CustomDate().FromDayMonthYear( 26, 6, 1974 );
+        CustomDate a = new CustomDate( 1, 1, 1970 );
+        CustomDate b = new CustomDate( 26, 6, 1974 );
 
         // Act 
         CustomDate aPlus1 = a + 1;
@@ -149,8 +149,8 @@ public class CustomDateTests
     public void CustomDate_PrimaryOperations_InvalidValues_CorrectAnswer()
     {
         // Arrange
-        CustomDate a = new CustomDate().FromDayMonthYear( 1, 1, 1960 );
-        CustomDate b = new CustomDate().FromDayMonthYear( 26, 6, 1974 );
+        CustomDate a = new CustomDate( 1, 1, 1960 );
+        CustomDate b = new CustomDate( 26, 6, 1974 );
 
         // Act 
         CustomDate aPlus1 = a + 1;
@@ -176,12 +176,11 @@ public class CustomDateTests
     [Test]
     public void CustomDate_FromDayMonthYearAndFromDays_NormalValues_CorrectAnswer()
     {
-        CustomDate date1 = new CustomDate().FromDayMonthYear( 26, 6, 1974 );
-        CustomDate date1_1 = new CustomDate().FromDays( 1637 );
+        CustomDate date1 = new CustomDate( 26, 6, 1974 );
+        CustomDate date1_1 = new CustomDate( 1637 );
         
-        CustomDate date2 = new CustomDate().FromDayMonthYear( 5, 5, 2000 );
-        CustomDate date2_2 = new CustomDate().FromDays( 11082 );
-        
+        CustomDate date2 = new CustomDate( 5, 5, 2000 );
+        CustomDate date2_2 = new CustomDate( 11082 );
         
         Multiple(() =>
         {
@@ -198,14 +197,14 @@ public class CustomDateTests
     [Test]
     public void CustomDate_FromDayMonthYear_LessThenMinimalYear_InvalidAndValidDate()
     {
-        CustomDate date1 = new CustomDate().FromDayMonthYear( 1, 5, 1000 );
-        CustomDate date2 = new CustomDate().FromDayMonthYear( 31, 5, 1969);
-        CustomDate date3 = new CustomDate().FromDayMonthYear( 31, 5, 1970);
-        CustomDate date4 = new CustomDate().FromDayMonthYear( 31, 5, 99999);
+        CustomDate date1 = new CustomDate( 1, 5, 1000 );
+        CustomDate date2 = new CustomDate( 31, 5, 1969);
+        CustomDate date3 = new CustomDate( 31, 5, 1970);
+        CustomDate date4 = new CustomDate( 31, 5, 99999);
         
-        CustomDate date11 = new CustomDate().FromDays( int.MinValue );
-        CustomDate date12 = new CustomDate().FromDays( int.MaxValue );
-        CustomDate date13 = new CustomDate().FromDays( 1636 );
+        CustomDate date11 = new CustomDate( int.MinValue );
+        CustomDate date12 = new CustomDate( int.MaxValue );
+        CustomDate date13 = new CustomDate( 1636 );
         
         Multiple(() =>
         {

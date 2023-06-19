@@ -8,7 +8,6 @@ public class GregorianCalendar : ICustomCalendar
     private const int MinSupportedYear = 1970;
     private const int MaxSupportedYear = 9999;
 
-    private const int DaysInLeapYear = 366;
     private const int DaysInFullYear = 365;
 
     private const int DaysInFebruaryLeapYear = 29;
@@ -99,13 +98,17 @@ public class GregorianCalendar : ICustomCalendar
         int era = ( daysAfterJulianEra >= 0 ? daysAfterJulianEra : daysAfterJulianEra - DaysInSmallEra ) / DaysInFullEra;
         int daysToCurrentEra = daysAfterJulianEra - era * DaysInFullEra;
 
-        int daysIn1460Years = daysToCurrentEra / 1460;
-        int daysIn36524Years = daysToCurrentEra / 36524;
+        int daysIn1460Years = daysToCurrentEra / 1460; // Количество периодов по 4 года
+        int daysIn36524Years = daysToCurrentEra / 36524; // Количество периодов по 100 лет
         int yearsToCurrentEra = ( daysToCurrentEra - daysIn1460Years + daysIn36524Years - daysToCurrentEra / DaysInSmallEra ) / DaysInFullYear;
        
         int daysFromYearBeginning = daysToCurrentEra - ( DaysInFullYear * yearsToCurrentEra + yearsToCurrentEra / 4 - yearsToCurrentEra / 100 + yearsToCurrentEra / YearsInEra );
+        
+        // Используя "Классический алгоритм даты Йулиана" получем приблизительный месяц
         int monthApproximate = ( 5 * daysFromYearBeginning + 2 ) / 153;
+        // Переводим в формат от 1 до 12
         int month = monthApproximate + ( monthApproximate < 10 ? 3 : -9 );
+        
         int year = yearsToCurrentEra + era * YearsInEra + ( month <= (int) Month.February ? 1 : 0 );
         int day = daysFromYearBeginning - 1;
 
