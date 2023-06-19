@@ -79,23 +79,17 @@ public class GregorianCalendar : ICustomCalendar
             throw new DateNotExistsException( year, month, day );
         }
 
-        int days = day;
-        for ( int yearIndex = MinSupportedYear; yearIndex < year; yearIndex++ )
+        int totalDays = day - 1;
+        int[] monthDays = GetMonthDays( year );
+        for (int index = 0; index < (int) month - 1; index++)
         {
-            days += IsLeapYear( yearIndex ) ? DaysInLeapYear : DaysInFullYear;
+            totalDays += monthDays[index];
         }
 
-        for ( int monthIndex = 1; monthIndex < (int) month; monthIndex++ )
-        {
-            days += DaysPerMonth[ (Month) monthIndex ];
-        }
+        int leapYears = (year - 1969) / 4 - (year - 1901) / 100 + (year - 1601) / 400;
+        int daysFromEraToCurrenYear = (year - MinSupportedYear) * DaysInFullYear + leapYears;
 
-        if ( IsLeapYear( year ) && month > Month.February )
-        {
-            days += 1;
-        }
-
-        return days - 1;
+        return totalDays + daysFromEraToCurrenYear;
     }
 
     public DateParams GetDateParamsFromDaysOffset( int daysOffset )
