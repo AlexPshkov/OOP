@@ -7,7 +7,7 @@ namespace Task1._7_HttpUrl.Tests;
 public class HttpUrlTests
 {
     [Test]
-    public void HttpUrl_Ctor1_NormalUrl_CorrectOutput()
+    public void HttpUrl_ConstructFromUrl_NormalUrl_CorrectOutput()
     {
         // Arrange
         const string url = "mysite/Enter.aspx";
@@ -26,7 +26,7 @@ public class HttpUrlTests
     }
 
     [Test]
-    public void HttpUrl_Ctor2_NormalParams_CorrectOutput()
+    public void HttpUrl_ConstructFromCustomParams_NormalParams_CorrectOutput()
     {
         // Arrange
         const Protocol protocol = Protocol.Http;
@@ -52,7 +52,7 @@ public class HttpUrlTests
     [TestCase(Protocol.Http, (ushort) 25565, "not foralexpshkov", "/site")]
     [TestCase(Protocol.Http, (ushort) 25565, "not foralexpshkov", "/site,")]
     [TestCase(Protocol.Http, (ushort) 25565, "foralexpshkov", "/site...")]
-    public void HttpUrl_Ctor2_InvalidParams_GetArgumentException( Protocol protocol, ushort port, string domain, string document )
+    public void HttpUrl_ConstructorWithCustomParams_InvalidParams_GetArgumentException( Protocol protocol, ushort port, string domain, string document )
     {
         // Act && Assert
         Assert.Throws<ArgumentException>(() =>

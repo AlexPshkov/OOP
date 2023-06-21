@@ -9,8 +9,7 @@ public static partial class HttpUrlParser
     [GeneratedRegex( @"^(?:(?<protocol>\w+):\/\/)?(?<domain>[^\/\r\n\s:]+)(?::(?<port>\d+))?(?<document>\/([^.,]+\.{0,1})*){0,}?$" )]
     private static partial Regex UrlRegex();
 
-    public static void ParseUrl( string url, out Protocol protocol, out ushort port, out string domain,
-        out string document )
+    public static void ParseUrl( string url, out Protocol protocol, out ushort port, out string domain, out string document )
     {
         Match match = UrlRegex().Match( url );
 
@@ -19,13 +18,13 @@ public static partial class HttpUrlParser
             throw new UrlParsingException( $"Invalid URL format. URL: {url}" );
         }
 
-        TryGetProtocol( match, out protocol );
-        TryGetDomain( match, out domain );
-        TryGetPort( match, protocol, out port );
-        TryGetDocument( match, out document );
+        GetProtocol( match, out protocol );
+        GetDomain( match, out domain );
+        GetPort( match, protocol, out port );
+        GetDocument( match, out document );
     }
 
-    private static void TryGetProtocol( Match match, out Protocol protocol )
+    private static void GetProtocol( Match match, out Protocol protocol )
     {
         if ( !match.Groups.TryGetValue( "protocol", out Group? group ) )
         {
@@ -44,7 +43,7 @@ public static partial class HttpUrlParser
         }
     }
 
-    private static void TryGetDomain( Match match, out string domain )
+    private static void GetDomain( Match match, out string domain )
     {
         if ( !match.Groups.TryGetValue( "domain", out Group? group ) )
         {
@@ -54,7 +53,8 @@ public static partial class HttpUrlParser
         domain = group.Value;
     }
 
-    private static void TryGetPort( Match match, Protocol protocol, out ushort port )
+    // Большая вложенность
+    private static void GetPort( Match match, Protocol protocol, out ushort port )
     {
         if ( match.Groups.TryGetValue( "port", out Group? group ) )
         {
@@ -62,7 +62,7 @@ public static partial class HttpUrlParser
             {
                 if ( !ushort.TryParse( group.Value, out port ) )
                 {
-                    throw new UrlParsingException( "Invalid port in URL. Port must be positive number" );
+                    throw new UrlParsingException( "Invalid port in URL. Port must be number from 1 to 65535" );
                 }
 
                 return;
@@ -74,10 +74,16 @@ public static partial class HttpUrlParser
             throw new UrlParsingException( "Invalid port in URL" );
         }
 
-        port = (ushort) protocol;
+        port = protocol switch
+        {
+            Protocol.Http => 80,
+            Protocol.Https => 443,
+            Protocol.Ftp => 21,
+            _ => throw new ArgumentOutOfRangeException( nameof( protocol ), protocol, null )
+        };
     }
 
-    private static void TryGetDocument( Match match, out string document )
+    private static void GetDocument( Match match, out string document )
     {
         if ( match.Groups.TryGetValue( "document", out Group? group ) )
         {
