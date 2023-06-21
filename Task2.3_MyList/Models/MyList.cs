@@ -5,14 +5,6 @@ namespace Task2._3_MyList.Models;
 
 public class MyList<T> : IList<T>
 {
-    // •	Вставка элемента в начало и в конец списка + 
-    // •	Методы begin(), end(), rbegin() и rend(), возвращающие итераторы для перебора элементов списка в прямом и обратном направлении +
-    // •	Информация о количестве элементов списка +
-    // •	Вставка элемента в позицию списка, заданную итератором
-    // •	Удаление элемента из списка в позиции, заданной итератором
-    // •	Конструктор копирования и оператор присваивания.
-    // •	Конструктор перемещения и перемещающий оператор присваивания.
-
     private Node<T>? _firstNode;
     private Node<T>? _lastNode;
 
@@ -26,10 +18,18 @@ public class MyList<T> : IList<T>
 
     public T this[int index]
     {
-        get => GetNodeAt(index).Data;
-        set => Insert( index, value );
+        get => GetNodeAt( index ).Data;
+        set
+        {
+            if ( IsReadOnly )
+            {
+                throw new NotSupportedException( "U can't change readonly list" );
+            }
+            
+            GetNodeAt( index ).Data = value;
+        }
     }
-    
+
     public void Add( T item )
     {
         InsertAtTheEnd( item );
@@ -100,7 +100,7 @@ public class MyList<T> : IList<T>
 
             index++;
         }
-
+        
         return -1;
     }
 
@@ -159,7 +159,7 @@ public class MyList<T> : IList<T>
         _lastNode = node;
     }
     
-    public void InsertNew( int position, T item )
+    public void Insert( int position, T item )
     {
         if ( IsReadOnly )
         {
@@ -194,19 +194,6 @@ public class MyList<T> : IList<T>
         }
 
         Count++;
-    }
-    
-    public void Insert( int position, T item )
-    {
-        if ( IsReadOnly )
-        {
-            throw new NotSupportedException( "U can't change readonly list" );
-        }
-        
-        ValidatePosition( position );
-        
-        Node<T> existingNode = GetNodeAt( position );
-        existingNode.Data = item;
     }
 
     public void RemoveAt( int position )

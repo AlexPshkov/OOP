@@ -28,8 +28,8 @@ public class MyListTests
         myList.Add( "some string 0" );
 
         // Act && Assert
-        Assert.Throws<ArgumentOutOfRangeException>(() => myList.InsertNew( -1, "some string 1" ) );
-        Assert.Throws<ArgumentOutOfRangeException>(() => myList.InsertNew( 2, "some string 1" ) );
+        Assert.Throws<ArgumentOutOfRangeException>(() => myList.Insert( -1, "some string 1" ) );
+        Assert.Throws<ArgumentOutOfRangeException>(() => myList.Insert( 2, "some string 1" ) );
         Assert.Throws<ArgumentOutOfRangeException>(() => myList[1] = "" );
     }
     
@@ -75,8 +75,8 @@ public class MyListTests
         myList.InsertAtTheEnd( "some string 3" );
 
         // Act
-        myList.Insert( 0, "some string 4" );
-        myList.Insert( 2, "some string 5" );
+        myList[0] = "some string 4";
+        myList[2] = "some string 5";
         myList.InsertAtTheEnd( "some string 6" );
 
         // Assert
@@ -99,9 +99,9 @@ public class MyListTests
         myList.Add( "some string 3" );
 
         // Act
-        myList.InsertNew( 0, "some string 0" );
-        myList.InsertNew( 1, "some string 0.5" );
-        myList.InsertNew( 5, "some string 4" );
+        myList.Insert( 0, "some string 0" );
+        myList.Insert( 1, "some string 0.5" );
+        myList.Insert( 5, "some string 4" );
 
         // Assert
         Assert.That( myList, Has.Count.EqualTo( 6 ) );

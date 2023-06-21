@@ -4,7 +4,7 @@ namespace Task1._3_FindMaxEx.Comparers;
 
 public class SportsmenWeightComparer : IComparer<Sportsmen>
 {
-    public int Compare( Sportsmen? left, Sportsmen? right )
+    public int Compare( Sportsmen left, Sportsmen right )
     {
         if ( ReferenceEquals( left, right ) ) return 0;
         if ( ReferenceEquals( null, right ) ) return 1;
